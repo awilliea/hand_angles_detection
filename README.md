@@ -4,6 +4,9 @@
 
 ### Usage
 ```python=
+# camera test
+python camera_test.py
+
 # process video
 python detect_angles.py --filenames hands_1.mp4 hands_2.mp4 hands_3.mp4 hands_4.mp4 --output_dir Outputs --data_type videos --start_frames 0 0 0 0 --end_frames -1 -1 -1 -1
 
