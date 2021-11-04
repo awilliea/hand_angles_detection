@@ -26,20 +26,21 @@ parser.add_argument('--max_num_hands', default=2, type=int,
 parser.add_argument('--min_detection_confidence', default=0.5, type=int,
                     help='The prediction confidence of the mediapipe model')
 parser.add_argument('--start_frames', default=[], nargs="*", type=int,
-                    help='The maximum frame number you want to process in a video. -1 means you want to process the whole video.')                    
+                    help='The starting frames you want to process in a video.')                    
 parser.add_argument('--end_frames', default=[], nargs="*", type=int,
-                    help='The maximum frame number you want to process in a video. -1 means you want to process the whole video.')
-#parser.add_argument('--save', default="False",type=boolean_string,
-#                    help="Whether to save the horizon table")
+                    help='The ending frames you want to process in a video. -1 means you want to process the whole video.')
+
                     
 class hand_angle_detector:
   def __init__(self,filename, data_type, max_num_hands, min_detection_confidence, start_frame, end_frame, output_dir):
     '''
-    file_names: list, list of file names
+    filename: str, the name of file which you want to process
     data_type: str, video or image
     max_num_hands: int, default is 2
     min_detection_confidence: int, the confidence fo the detector
-
+    start_frame: str,
+    end_frame: str,
+    output_dir: str, the dir you want to save your outputs
     '''
     self.filename = filename
     self.data_type = data_type
@@ -288,11 +289,5 @@ if __name__ == '__main__':
                                              start_frame=start_frame, end_frame=end_frame, output_dir=args.output_dir)
       detector.main()
 
-
-
-# TODO:
-#1. 將 class main funciton 改成可以判別 data type
-#2. 整理輸出格式
-#3. 測試程式
 # python detect_angles.py --filenames hands_1.mp4 hands_2.mp4 hands_3.mp4 hands_4.mp4 --output_dir Outputs --data_type videos --start_frames 0 0 0 0 --end_frames -1 -1 -1 -1
 # python detect_angles.py --filenames image_1.jpg image_2.jpg image_3.jpg --output_dir Outputs --data_type images
