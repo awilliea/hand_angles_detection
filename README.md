@@ -43,13 +43,13 @@ python detect_angles.py --filenames image_1.jpg image_2.jpg image_3.jpg --output
 * mediapipe 不足點：大拇指到手腕之間的辨識不太行、關節測量點位是在中間而不是皮膚上下（與真實值會有誤差）
 
 ### 11/18 Progress
-* output the max angle and the min angle (each cycle)
+* Correct the computation of each angle 
+* Compute the max angle and the min angle (each cycle)
     * Preprocess: smoothing (mean of rolling window)
     * Function: detect_max_min_by_threshold 
     * Problems
         * How to select an appropriate hyperparameter for the rolling window?
         * Detecting the maximization and the minization of angles by threshold may not work due to different threshold.
-* detect the gradient of angles 
+* Detect the gradient of angles 
     * There is no need for this. What we want is to display a specific delay of certain fingers. 
-    * 
 
