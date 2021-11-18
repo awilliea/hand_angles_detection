@@ -1,16 +1,37 @@
 # Hand_angles_detection
 
 ### Usage
+1. 下載整個程式檔（畫面中右上角有個綠色的 code, 點他之後下面會有個 download zip），下載完之後放到你想放的位置解壓縮。
+2. 右鍵點擊他查看他所在的位置（e.g., C:/Desktop/hand_angles_detection），打開 command line(終端機)，輸入以下指令，他會將目前的位置移到下載完的專案裡面。
+```bash=
+cd location_of_the_downloaded_dir
+```
+3. 將你想要分析的檔案放到專案檔案裡一個名叫 data 的資料夾，如果你想分析的是影片，就將檔案放到 data/videos; 如果想分析的是圖片，則將檔案放到 data/images 裡面。
+4. 執行你想操作的程式，分成三種類型：單純做攝像頭測試、分析影片、分析圖片檔，選擇其中一種即可。這邊以分析影片為例，將 # analyze video 下面的程式碼複製貼到你的 command line 上
+5. 根據需求調整超參數。
+    * python 換成你系統底下偏好的執行檔（e.g., C:/Desktop/msys64/bin/python），否則他會使用系統預設的 python 執行檔
+    * --filenames 後面的 xxx.mp4 換成你想分析的影片名稱，比如你想分析的影片是 abc.mp4 以及 bcd.mp4，則這邊就會改成 --filenames abc.mp4 bcd.mp4。另外，這邊的影片名稱要跟你放在 data/videos 裡面的完成完全一樣
+    * --output_dir 後面的名稱指的是會將分析好的檔案存在哪邊，可以不用改他
+    * --data_type 根據你想分析哪種形式的資料而定，只能輸入 videos 或 images
+    * --start_frames 指的是你想從影片的哪個位置開始分析，單位是 frame，每一部影片會對應一個 start frame
+    * --end_frames 指的是你想從影片的哪個位置結束分析，單位是 frame，每一部影片會對應一個 end frame, -1 指的是不中斷，直接分析到影片結束為止
+
 ```python=
 # camera test
 python camera_test.py
 
-# process video
+# analyze video
 python detect_angles.py --filenames hands_1.mp4 hands_2.mp4 hands_3.mp4 hands_4.mp4 --output_dir Outputs --data_type videos --start_frames 0 0 0 0 --end_frames -1 -1 -1 -1
 
-# process image
+# analyze image
 python detect_angles.py --filenames image_1.jpg image_2.jpg image_3.jpg --output_dir Outputs --data_type images
 ```
+6. 查看結果。結果會存在 Outputs 資料夾裡面，裡面的存存形式為 output_dataname，比如你分析的是檔案名稱是 abc.mp4，則他的輸出結果就會在 output_abc，每個輸出結果都包含以下資料
+    * detected images: 標示出手部位置的圖片檔案，單位是 frame，檔名為他在影片中的第幾個 frame
+    * parameters.json: 包含一些影片相關資料以及使用的超參數，像是 fps(frame per second), start/end frame, 分析的成功率等等
+    * left/right_hands_corrdinates.csv: 左/右手每個關節點位 (21 points) 在每個 frame 的 3D 位置，如果沒有檢測道則會在 Detected 這個欄位顯示 False
+    * left/right_hands_angles.csv: 左/右手關節之間的角度，column 欄位分別對應每隻手指算出來的三種角度（_0, _1, _2），其中 _0 表示的是手腕到該手指第一個關節的角度，其他依此往外推。row 表示的是不同的 frame 所對應的角度
+    * left/right_hands_angles_max_min.csv: 左/右手關節之間的角度的最大值、最小值、最大值產生的時間、最小值產生的時間，每個欄位可能會有多個數值，原因是因為病人可能會做多次的握拳動作，這邊會用自動檢測的方式輸出不同 round 的最大最小值。
 
 ### TODO
 1. output the max angle and the min angle (each cycle)
