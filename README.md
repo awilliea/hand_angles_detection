@@ -1,7 +1,5 @@
 # Hand_angles_detection
 
-
-
 ### Usage
 ```python=
 # camera test
@@ -22,3 +20,15 @@ python detect_angles.py --filenames image_1.jpg image_2.jpg image_3.jpg --output
 * 測量方式：單次測量會有誤差，可以用多次測量再取平均值
 * 之後做成 app 的時候，可以設計成標準的測量方式（像是 iphone 在做臉部辨識時的前置動作，讓我們把臉對準某一個輪廓 -> 靜置測量一陣子 -> 轉向測量 等等）
 * mediapipe 不足點：大拇指到手腕之間的辨識不太行、關節測量點位是在中間而不是皮膚上下（與真實值會有誤差）
+
+### 11/18 Progress
+* output the max angle and the min angle (each cycle)
+    * Preprocess: smoothing (mean of rolling window)
+    * Function: detect_max_min_by_threshold 
+    * Problems
+        * How to select an appropriate hyperparameter for the rolling window?
+        * Detecting the maximization and the minization of angles by threshold may not work due to different threshold.
+* detect the gradient of angles 
+    * There is no need for this. What we want is to display a specific delay of certain fingers. 
+    * 
+
