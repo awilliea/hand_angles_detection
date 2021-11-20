@@ -2,7 +2,7 @@
 
 ### Usage
 1. 下載整個程式檔（畫面中右上角有個綠色的 code, 點他之後下面會有個 download zip），下載完之後放到你想放的位置解壓縮。
-2. 右鍵點擊他查看他所在的位置（e.g., C:/Desktop/hand_angles_detection），打開 command line(終端機)，輸入以下指令，他會將目前的位置移到下載完的專案裡面。
+2. 移動位址。右鍵點擊下載檔案並查看他所在的位置，打開 command line(終端機)，輸入以下指令，他會將目前的位置移到下載完的專案裡面。比如你把檔案下載到 C：\Users\USER\Desktop，那就要在終端機輸入 cd C：\Users\USER\Desktop\hand_angles_detection
 ```bash=
 cd location_of_the_downloaded_dir
 ```
@@ -52,4 +52,15 @@ python detect_angles.py --filenames image_1.jpg image_2.jpg image_3.jpg --output
         * Detecting the maximization and the minization of angles by threshold may not work due to different threshold.
 * Detect the gradient of angles 
     * There is no need for this. What we want is to display a specific delay of certain fingers. 
+
+### TODO 
+* 兩根手指夾腳
+* 虎口角度
+* 小數點後兩位（round(2)）
+* 圖片不用存太多
+* video pixel status (e.g, 640*320)
+* application papers 寫法
+* smooth 方式調研
+* 臨床測試，並與套件結果做比較（e.g., ROM > 9成）
+* 圖形衍伸（15 張圖）
 
