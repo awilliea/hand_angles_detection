@@ -2,7 +2,7 @@
 
 ### Usage
 1. 下載整個程式檔（畫面中右上角有個綠色的 code, 點他之後下面會有個 download zip），下載完之後放到你想放的位置解壓縮。
-2. 移動位址。右鍵點擊下載檔案並查看他所在的位置，打開 command line(終端機)，輸入以下指令，他會將目前的位置移到下載完的專案裡面。比如你把檔案下載到 C：\Users\USER\Desktop，那就要在終端機輸入 cd C：\Users\USER\Desktop\hand_angles_detection
+2. 移動位址。右鍵點擊下載檔案並查看他所在的位置，打開 command line(終端機)，輸入以下指令，他會將目前的位置移到下載完的專案裡面。比如你把檔案下載到 C：\Users\USER\Desktop，且你下載的檔案名稱為 hand_angles_detection，那就要在終端機輸入 cd C：\Users\USER\Desktop\hand_angles_detection
 ```bash=
 cd location_of_the_downloaded_dir
 ```
