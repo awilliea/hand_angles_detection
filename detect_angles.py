@@ -63,14 +63,13 @@ class hand_angle_detector:
     self.detected_rate = []
     self.create_fingle_list()
 
-  # 將影片轉成圖案
+  # deframe
   def read_video(self):
     '''
     Input:
-      video_name: 要轉換影片的檔名以及位置
-      frame_number: 最多處理多少張圖片（太多 RAM 會用超過）
+      video_name: name of the video you want to analyze 
     Output:
-      image_list: 影片轉換出來的圖片檔
+      image_list: images deframes from the video
     '''
     if self.end_frame == -1:
         self.end_frame = math.inf
@@ -104,7 +103,7 @@ class hand_angle_detector:
     self.image_list = [img]
     cv2.destroyAllWindows()
 
-  # 將處理過後的圖片存起來
+  # save the analyzed images
   def save_image(self, output_image_dir):
     if not os.path.isdir(output_image_dir):
       os.mkdir(output_image_dir)
@@ -113,7 +112,7 @@ class hand_angle_detector:
       cv2.imwrite(os.path.join(output_image_dir,file_name), img)
       cv2.waitKey(1)
 
-  # 將辨識完的左右手位置存成 DataFrame
+  # Get the coordinates of each finger point 
   def turn_list_to_df(self):
     column_names = ['Detected']+['point_{}'.format(i) for i in range(21)]
     right_hands_df = pd.DataFrame(columns=column_names)
@@ -146,7 +145,7 @@ class hand_angle_detector:
   def compute_angle(self, v1, v2, acute=True):
     # v1 is your firsr vector
     # v2 is your second vector
-    # actue= True 表示要計算銳角 (因為是 cosine -> 銳角的定義是 180 以下)
+    # actue= True means that all angles we compute are less than 180 degrees
     angle_ = np.arccos(np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2)))
     if (acute == True):
         angle = angle_
