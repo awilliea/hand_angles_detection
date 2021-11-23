@@ -24,18 +24,20 @@ parser.add_argument('--filenames', default=['all'], nargs="*", type=str,
                     help='the name of files you want to process. If you do not assign a specific name of file, it would process all of the files in the data dir')
 parser.add_argument('--max_num_hands', default=2, type=int,
                     help='The maximum hands in the video or image')
-parser.add_argument('--min_detection_confidence', default=0.5, type=int,
+parser.add_argument('--min_detection_confidence', default=0.5, type=float,
                     help='The prediction confidence of the mediapipe model')
-parser.add_argument('--threshold', default=0.2, type=int,
+parser.add_argument('--threshold', default=0.2, type=float,
                     help='The threshold for the detection of maximization and minization of the angles')
 parser.add_argument('--start_frames', default=[], nargs="*", type=int,
                     help='The starting frames you want to process in a video.')                    
 parser.add_argument('--end_frames', default=[], nargs="*", type=int,
                     help='The ending frames you want to process in a video. -1 means you want to process the whole video.')
+parser.add_argument('--save_freq',  default=3, type=int,
+                    help='The frequency for you to save detected images. e.g., 3 means that you would save one of the three detected images')
 
                     
 class hand_angle_detector:
-  def __init__(self,filename, data_type, max_num_hands, min_detection_confidence, threshold, start_frame, end_frame, output_dir):
+  def __init__(self,filename, data_type, max_num_hands, min_detection_confidence, threshold, start_frame, end_frame, save_freq, output_dir):
     '''
     filename: str, the name of file which you want to process
     data_type: str, video or image
@@ -57,6 +59,7 @@ class hand_angle_detector:
     self.max_num_hands = max_num_hands
     self.min_detection_confidence = min_detection_confidence
     self.threshold = threshold
+    self.save_freq = save_freq
     self.image_list = []
     self.new_image_list = []
     self.landmark_label_list = []
@@ -97,20 +100,24 @@ class hand_angle_detector:
     cap.release()
     cv2.destroyAllWindows()
     self.image_list = image_list
-
+    self.image_shape = image_list[0].shape
+    
   def read_image(self):
     img = cv2.imread(self.filename)
     self.image_list = [img]
     cv2.destroyAllWindows()
-
+  
+  # 1 seconds: 3 cycles (6 actions -> 12 ~ 18 images -> 1/3 ~ 1/2 frames)
   # save the analyzed images
   def save_image(self, output_image_dir):
+
     if not os.path.isdir(output_image_dir):
       os.mkdir(output_image_dir)
     for i,img in enumerate(self.new_image_list):
       file_name = 'frame_{}.jpg'.format(i)
-      cv2.imwrite(os.path.join(output_image_dir,file_name), img)
-      cv2.waitKey(1)
+      if i % self.save_freq == 0:
+        cv2.imwrite(os.path.join(output_image_dir,file_name), img)
+        cv2.waitKey(1)
 
   # Get the coordinates of each finger point 
   def turn_list_to_df(self):
@@ -151,7 +158,7 @@ class hand_angle_detector:
         angle = angle_
     else:
         angle =  2 * np.pi - angle_
-    return (180 * angle/np.pi)
+    return round((180 * angle/np.pi),2)
 
   def create_fingle_list(self):
     finger_list_point = np.array(['_1','_2','_3']*5)
@@ -251,7 +258,8 @@ class hand_angle_detector:
       'max_num_hands': self.max_num_hands,
       'min_detection_confidence': self.min_detection_confidence,
       'detected_rate': self.detected_rate,
-      'fps': self.fps
+      'fps': self.fps,
+      'image_shape': self.image_shape
     }
     with open(os.path.join(dir,'parameters.json'), 'w') as f:
       json.dump(parameters, f)
@@ -327,8 +335,9 @@ if __name__ == '__main__':
       end_frame = end_frames[file_idx]
       detector = hand_angle_detector(filename, data_type = args.data_type, max_num_hands=args.max_num_hands, \
                                              min_detection_confidence=args.min_detection_confidence, threshold=args.threshold,\
-                                             start_frame=start_frame, end_frame=end_frame, output_dir=args.output_dir)
+                                             start_frame=start_frame, end_frame=end_frame, save_freq=args.save_freq, output_dir=args.output_dir)
       detector.main()
 
 # python detect_angles.py --filenames hands_1.mp4 hands_2.mp4 hands_3.mp4 hands_4.mp4 --output_dir Outputs --data_type videos --start_frames 0 0 0 0 --end_frames -1 -1 -1 -1
 # python detect_angles.py --filenames image_1.jpg image_2.jpg image_3.jpg --output_dir Outputs --data_type images
+# python detect_angles.py --filenames 001.mp4 --output_dir Outputs --data_type videos --start_frames 0 --end_frames -1

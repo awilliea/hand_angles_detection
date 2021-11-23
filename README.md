@@ -56,11 +56,12 @@ python detect_angles.py --filenames image_1.jpg image_2.jpg image_3.jpg --output
 ### TODO 
 * 兩根手指夾腳
 * 虎口角度
-* 小數點後兩位（round(2)）
-* 圖片不用存太多
-* video pixel status (e.g, 640*320)
+* (done) 小數點後兩位（round(2)） 
+* (done) 圖片不用存太多 
+* (done) video pixel status (e.g, 640*320)
 * application papers 寫法
 * smooth 方式調研
 * 臨床測試，並與套件結果做比較（e.g., ROM > 9成）
-* 圖形衍伸（15 張圖）
+* 手部角度變化的圖形做衍伸（15 張圖），看能不能有其他研究方向
+* mediapipe hand 做法調查（看 paper）
 
