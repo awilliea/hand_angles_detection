@@ -1,4 +1,6 @@
 # Hand_angles_detection
+### Related papers
+https://drive.google.com/drive/folders/1xxPDvrQ9xO2RgIvJIwXZe_n1rn1aZpIZ?usp=sharing
 
 ### Usage
 1. 下載整個程式檔（畫面中右上角有個綠色的 code, 點他之後下面會有個 download zip），下載完之後放到你想放的位置解壓縮。
