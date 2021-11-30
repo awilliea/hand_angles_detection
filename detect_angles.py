@@ -158,7 +158,7 @@ class hand_angle_detector:
         angle = angle_
     else:
         angle =  2 * np.pi - angle_
-    return round((180 * angle/np.pi),2)
+    return round((180 * angle/np.pi),1)
 
   def create_fingle_list(self):
     finger_list_point = np.array(['_1','_2','_3']*5)
