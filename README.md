@@ -56,20 +56,31 @@ python detect_angles.py --filenames image_1.jpg image_2.jpg image_3.jpg --output
     * There is no need for this. What we want is to display a specific delay of certain fingers. 
 
 ### TODO 
-* 兩根手指夾腳
-* 虎口角度
-* 體積計算（e.g., 大拇指轉一圈）
-* (done) 小數點後一位（round(1)） 
-* excel 表格不要有括號、不同 cycle 可以把他們展開
-* (done) 圖片不用存太多 
-* (done) video pixel status (e.g, 640*320)
-* cycle 定位有問題 -> 改進
-* 角度需要有 negative (-5 - 90) (角度不能夠對稱，相反過來應該要變負數 -> 但是內積沒有方向性) -> 使用 sin and cos 同時判斷
-* 3D camera 建議
-* 影片辨識度改進（試一下不同的超參數，看一下能否不讓他做出不好的預測）
-* application papers 寫法
-* smooth 方式調研
-* 臨床測試，並與套件結果做比較（e.g., ROM > 9成）
-* 手部角度變化的圖形做衍伸（15 張圖），看能不能有其他研究方向
-* mediapipe hand 做法調查（看 paper）
+* Others
+    * 兩根手指夾腳
+    * 虎口角度
+    * 體積計算（e.g., 大拇指轉一圈）
+    * 3D camera 建議
+* Outputs
+    * (done) 小數點後一位（round(1)） 
+    * (done) excel 表格不要有括號、不同 cycle 可以把他們展開
+    * (done) 圖片不用存太多 
+    * (done) video pixel status (e.g, 640*320)
+    * (done) RIF(right index finger) -> 簡寫
+    * 手部角度變化的圖形做衍伸（15 張圖)
+        * （done) smooth 版本
+        *  Title, name, ...
+        *  NAN 處理 -> (若不處理，在 pandas 做 rolling mean 的時候會爆掉)
+  
+* Algorithms
+    * cycle 定位有問題 -> 改進
+    * 角度需要有 negative (-5 - 90) (角度不能夠對稱，相反過來應該要變負數 -> 但是內積沒有方向性) -> 使用 sin and cos 同時判斷
+    * 影片辨識度改進（試一下不同的超參數，看一下能否不讓他做出不好的預測）
+    * smooth 方式調研
+    * mediapipe hand 做法調查（看 paper）
+* Publications
+    * application papers 寫法
+* Evaluation
+    * 臨床測試，並與套件結果做比較（e.g., ROM > 9成）
+
 

@@ -4,7 +4,7 @@ import numpy as np
 import os
 import pandas as pd
 import mediapipe as mp
-from utils.utils import process_lanmark, output_max_min
+from utils.utils import process_lanmark, output_max_min, plot_15angles_figure, save_df_to_doctor_domain
 import argparse
 import json
 
@@ -188,6 +188,7 @@ class hand_angle_detector:
 
           angle = self.compute_angle(v1, v2, True)
           angle_list.append(angle)
+
       angle_list_df.loc['angles for frame_{}'.format(frame_idx)] = angle_list
     return angle_list_df
 
@@ -206,7 +207,7 @@ class hand_angle_detector:
     landmark_label_list = []
     count = 0
     with self.mp_hands.Hands(
-        static_image_mode=False,
+        static_image_mode=True,
         max_num_hands=self.max_num_hands,
         min_detection_confidence=self.min_detection_confidence) as hands:
       for i,image in enumerate(self.image_list):
@@ -295,6 +296,8 @@ class hand_angle_detector:
     left_hand_angle_df = self.compute_hang_angle_for_each_point(left_hands_df)
     right_hand_angle_df.to_csv(os.path.join(file_output_dir, 'right_hands_angles.csv'))
     left_hand_angle_df.to_csv(os.path.join(file_output_dir, 'left_hands_angles.csv'))
+    plot_15angles_figure(right_hand_angle_df, self.fps, os.path.join(file_output_dir, 'right_hands_angles.png'), os.path.join(file_output_dir, 'right_hands_smooth_angles.png'))
+    plot_15angles_figure(left_hand_angle_df, self.fps, os.path.join(file_output_dir, 'left_hands_angles.png'), os.path.join(file_output_dir, 'left_hands_smooth_angles.png'))
     print("Save the angles of each point of hands")
 
     right_max_min_angle_list_df = self.compute_max_and_min_for_angle_df(right_hand_angle_df)
@@ -303,6 +306,7 @@ class hand_angle_detector:
     left_max_min_angle_list_df.to_csv(os.path.join(file_output_dir, 'left_hands_angles_max_min.csv'))
     print("Save the max and min angles of each point of hands")
 
+    save_df_to_doctor_domain(right_max_min_angle_list_df, left_max_min_angle_list_df, os.path.join(file_output_dir, "Hands_max_min.xlsx"))
 
     self.save_hyperparamters(file_output_dir)
     print("Save hyperparameters")
@@ -341,3 +345,5 @@ if __name__ == '__main__':
 # python detect_angles.py --filenames hands_1.mp4 hands_2.mp4 hands_3.mp4 hands_4.mp4 --output_dir Outputs --data_type videos --start_frames 0 0 0 0 --end_frames -1 -1 -1 -1
 # python detect_angles.py --filenames image_1.jpg image_2.jpg image_3.jpg --output_dir Outputs --data_type images
 # python detect_angles.py --filenames 001.mp4 --output_dir Outputs --data_type videos --start_frames 0 --end_frames -1
+# python detect_angles.py --filenames hands_2.mp4 --output_dir Outputs --data_type videos --start_frames 0 --end_frames -1
+# python detect_angles.py --filenames 20211216_peng_1.mp4 20211216_peng_2.mp4 20211216_peng_3.mp4 --output_dir Outputs --data_type videos --start_frames 0 0 0 --end_frames -1 -1 -1
