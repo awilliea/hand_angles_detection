@@ -70,10 +70,12 @@ python detect_angles.py --filenames image_1.jpg image_2.jpg image_3.jpg --output
     * 手部角度變化的圖形做衍伸（15 張圖)
         * （done) smooth 版本
         *  Title, name, ...
-        *  NAN 處理 -> (若不處理，在 pandas 做 rolling mean 的時候會爆掉)
+        *  (done)NAN 處理 -> (若不處理，在 pandas 做 rolling mean 的時候會爆掉)
   
 * Algorithms
     * cycle 定位有問題 -> 改進
+        * (done) Nan 處理
+        * NAN index 處理
     * 角度需要有 negative (-5 - 90) (角度不能夠對稱，相反過來應該要變負數 -> 但是內積沒有方向性) -> 使用 sin and cos 同時判斷
     * 影片辨識度改進（試一下不同的超參數，看一下能否不讓他做出不好的預測）
     * smooth 方式調研
