@@ -32,7 +32,7 @@ python detect_angles.py --filenames image_1.jpg image_2.jpg image_3.jpg --output
     * detected images: 標示出手部位置的圖片檔案，單位是 frame，檔名為他在影片中的第幾個 frame
     * parameters.json: 包含一些影片相關資料以及使用的超參數，像是 fps(frame per second), start/end frame, 分析的成功率等等
     * left/right_hands_corrdinates.csv: 左/右手每個關節點位 (21 points) 在每個 frame 的 3D 位置，如果沒有檢測道則會在 Detected 這個欄位顯示 False
-    * left/right_hands_angles.csv: 左/右手關節之間的角度，column 欄位分別對應每隻手指算出來的三種角度（_0, _1, _2），其中 _0 表示的是手腕到該手指第一個關節的角度，其他依此往外推。row 表示的是不同的 frame 所對應的角度
+    * left/right_hands_angles.csv: 左/右手關節之間的角度，column 欄位分別對應每隻手指算出來的三種角度（_1, _2, _3），其中 _1 表示的是手腕到該手指第一個關節的角度，其他依此往外推。row 表示的是不同的 frame 所對應的角度
     * left/right_hands_angles_max_min.csv: 左/右手關節之間的角度的最大值、最小值、最大值產生的時間、最小值產生的時間，每個欄位可能會有多個數值，原因是因為病人可能會做多次的握拳動作，這邊會用自動檢測的方式輸出不同 round 的最大最小值。
 
 ### TODO
