@@ -8,9 +8,13 @@ https://drive.google.com/drive/folders/1xxPDvrQ9xO2RgIvJIwXZe_n1rn1aZpIZ?usp=sha
 ```bash=
 cd location_of_the_downloaded_dir
 ```
-3. 將你想要分析的檔案放到專案檔案裡一個名叫 data 的資料夾，如果你想分析的是影片，就將檔案放到 data/videos; 如果想分析的是圖片，則將檔案放到 data/images 裡面。
-4. 執行你想操作的程式，分成三種類型：單純做攝像頭測試、分析影片、分析圖片檔，選擇其中一種即可。這邊以分析影片為例，將 # analyze video 下面的程式碼複製貼到你的 command line 上
-5. 根據需求調整超參數。
+3. 根據 requirements.txt 安裝所需要的套件
+```bash=
+pip install -r requirements.txt
+```
+4. 將你想要分析的檔案放到專案檔案裡一個名叫 data 的資料夾，如果你想分析的是影片，就將檔案放到 data/videos; 如果想分析的是圖片，則將檔案放到 data/images 裡面。
+5. 執行你想操作的程式，分成三種類型：單純做攝像頭測試、分析影片、分析圖片檔，選擇其中一種即可。這邊以分析影片為例，將 # analyze video 下面的程式碼複製貼到你的 command line 上
+6. 根據需求調整超參數。
     * python 換成你系統底下偏好的執行檔（e.g., C:/Desktop/msys64/bin/python），否則他會使用系統預設的 python 執行檔
     * --filenames 後面的 xxx.mp4 換成你想分析的影片名稱，比如你想分析的影片是 abc.mp4 以及 bcd.mp4，則這邊就會改成 --filenames abc.mp4 bcd.mp4。另外，這邊的影片名稱要跟你放在 data/videos 裡面的完成完全一樣
     * --output_dir 後面的名稱指的是會將分析好的檔案存在哪邊，可以不用改他
